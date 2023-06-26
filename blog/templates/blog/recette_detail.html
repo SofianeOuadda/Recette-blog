@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+    <title>Détails de la recette</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles_recette_detail.css' %}">
+
+</head>
+<body>
+    <header>
+        <h1>DETAIL DE LA RECETTE</h1>
+    </header>
+    <div class="left-bar"></div>
+    <div class="right-bar"></div>
+    <div class="recette-info">
+        <div class="recette-detail">
+            <h1>{{ recette.titre }}</h1>
+            <img src="{{ recette.image.url }}" alt="{{ recette.titre }}">
+            <div class="info">
+                <p><strong>Temps de préparation:</strong> {{ recette.temps_preparation }}</p>
+                <p><strong>Temps de cuisson:</strong> {{ recette.temps_cuisson }}</p>
+                <p><strong>Difficulté:</strong>
+                    {% if recette.difficulte == 1 %}
+                        Facile
+                    {% elif recette.difficulte == 2 %}
+                        Moyenne
+                    {% elif recette.difficulte == 3 %}
+                        Difficile
+                    {% else %}
+                        Inconnue
+                    {% endif %}
+                </p>
+                <p><strong>Nombre de personnes:</strong> {{ recette.nombre_personnes }}</p>
+            </div>
+            <div class="ingredients">
+                <h3>Ingrédients :</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for form in forms %}
+                        <div class="ingredient">
+                            <input type="checkbox" {% if form.checked.value %}checked{% endif %}>
+                            <label>{{ form.ingredient.value }}</label>
+                        </div>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+        <div class="instructions">
+            <h2>Instructions:</h2>
+            <p>{{ recette.etapes_preparation|linebreaksbr }}</p>
+        </div>
+    </div>
+
+    <div class="retour">
+        {% if request.path == '/recettes_sucrees/' %}
+            <a href="{% url 'recettes_sucrees' %}">Retour aux recettes sucrées</a>
+        {% else %}
+            <a href="{% url 'recettes_salees' %}">Retour aux recettes salées</a>
+        {% endif %}
+        <a href="{% url 'accueil' %}">Retour à l'accueil</a>
+    </div>
+</body>
+</html>
+

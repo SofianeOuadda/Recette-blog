@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Accueil</title>
+    <link rel="stylesheet" href="{% static 'css/styles_accueil.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur notre site de recettes de cuisine</h1>
+    </header>
+
+    <div class="categories">
+        <div class="category">
+            <a href="{% url 'recettes_sucrees' %}">
+                <img src="{% static 'images/dessert.jpg' %}" alt="Recettes sucrées">
+                <h3>Sucré</h3>
+            </a>
+        </div>
+        <div class="category">
+            <a href="{% url 'recettes_salees' %}">
+                <img src="{% static 'images/plat.jpg' %}" alt="Recettes salées">
+                <h3>Salé</h3>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

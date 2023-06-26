@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+<head>
+    <title>Recettes sucrées</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles_recettes_sucrees.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Recettes sucrées</h1>
+    </header>
+    <ul>
+        {% for recette in recettes_sucrees %}
+            <li><a href="{% url 'recette_detail' recette_id=recette.id %}">{{ recette.titre }}</a>
+                <div>
+                    <img src="{{ recette.image.url }}" alt="{{ recette.titre }}" width="200" height="200">
+                    <div class="info">
+                        <p><strong>Temps de préparation:</strong> {{ recette.temps_preparation }}</p>
+                        {% if recette.temps_cuisson %}
+                            <p><strong>Temps de cuisson:</strong> {{ recette.temps_cuisson }}</p>
+                        {% endif %}
+                        <p><strong>Difficulté:</strong>
+                        {% if recette.difficulte == 1 %}
+                            Facile
+                        {% elif recette.difficulte == 2 %}
+                            Moyenne
+                        {% elif recette.difficulte == 3 %}
+                            Difficile
+                        {% else %}
+                            Inconnue
+                        {% endif %}
+                        </p>
+                        <p><strong>Nombre de personnes:</strong> {{ recette.nombre_personnes }}</p>
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <li>Aucune recette sucrée disponible pour le moment.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'accueil' %}">Retour à l'accueil</a>
+</body>
+</html>
