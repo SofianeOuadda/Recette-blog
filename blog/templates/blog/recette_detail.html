@@ -55,11 +55,8 @@
     </div>
 
     <div class="retour">
-        {% if request.path == '/recettes_sucrees/' %}
-            <a href="{% url 'recettes_sucrees' %}">Retour aux recettes sucrées</a>
-        {% else %}
-            <a href="{% url 'recettes_salees' %}">Retour aux recettes salées</a>
-        {% endif %}
+        <a href="{% url 'recettes_sucrees' %}">Retour aux recettes sucrées</a>
+        <a href="{% url 'recettes_salees' %}">Retour aux recettes salées</a>
         <a href="{% url 'accueil' %}">Retour à l'accueil</a>
     </div>
 </body>
