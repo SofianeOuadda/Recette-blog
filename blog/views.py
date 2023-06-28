@@ -32,18 +32,6 @@ def recette_detail(request, recette_id):
         form = IngredientForm(form_data)
         forms.append(form)
 
-    if request.method == 'POST':
-        for form in forms:
-            form_data = {
-                'ingredient': form['ingredient'].value(),
-                'checked': form['checked'].value()
-            }
-            form = IngredientForm(form_data)
-            if form.is_valid():
-                form.save()
-
-        return redirect('recette_detail', recette_id=recette_id)
-
     context = {
         'recette': recette,
         'forms': forms
